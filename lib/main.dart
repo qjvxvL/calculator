@@ -160,8 +160,6 @@ class _CalculatorState extends State<Calculator> {
   dynamic opr = '';
   dynamic preOpr = '';
   void calculation(btnText) {
-
-
     if(btnText  == 'AC') {
       text ='0';
       numOne = 0;
@@ -171,7 +169,8 @@ class _CalculatorState extends State<Calculator> {
       opr = '';
       preOpr = '';
 
-    } else if( opr == '=' && btnText == '=') {
+    }
+    else if( opr == '=' && btnText == '=') {
 
       if(preOpr == '+') {
         finalResult = add();
