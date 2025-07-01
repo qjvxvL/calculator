@@ -120,7 +120,8 @@ class _CalculatorState extends State<Calculator> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-
+                    // Call the calculation function with the button text
+                    calculation('0');
                   },
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.fromLTRB(50, 20, 128, 20),
