@@ -160,84 +160,75 @@ class _CalculatorState extends State<Calculator> {
   dynamic opr = '';
   dynamic preOpr = '';
   void calculation(btnText) {
-    if(btnText == 'AC') {
-      text = '0';
+    if(btnText  == 'AC') {
+      text ='0';
       numOne = 0;
       numTwo = 0;
       result = '';
       finalResult = '0';
       opr = '';
       preOpr = '';
+
     }
-    else if(btnText == '+' || btnText == '-' || btnText == 'x' || btnText == '/' || btnText == '=') {
-      // If we just completed a calculation (opr == '='), use the result as numOne
-      if(opr == '=' && btnText != '=') {
-        numOne = double.parse(finalResult.toString());
-        result = '';
-        opr = btnText;
-        return;
+    else if( opr == '=' && btnText == '=') {
+
+      if(preOpr == '+') {
+        finalResult = add();
+      } else if( preOpr == '-') {
+        finalResult = sub();
+      } else if( preOpr == 'x') {
+        finalResult = mul();
+      } else if( preOpr == '/') {
+        finalResult = div();
       }
+
+    } else if(btnText == '+' || btnText == '-' || btnText == 'x' || btnText == '/' || btnText == '=') {
 
       if(numOne == 0) {
         numOne = double.parse(result);
       } else {
         numTwo = double.parse(result);
-
-        // Perform the previous operation
-        if(opr == '+') {
-          finalResult = add();
-        } else if(opr == '-') {
-          finalResult = sub();
-        } else if(opr == 'x') {
-          finalResult = mul();
-        } else if(opr == '/') {
-          finalResult = div();
-        }
-
-        // Set the result as numOne for the next operation
-        numOne = double.parse(finalResult.toString());
       }
 
+      if(opr == '+') {
+        finalResult = add();
+      } else if( opr == '-') {
+        finalResult = sub();
+      } else if( opr == 'x') {
+        finalResult = mul();
+      } else if( opr == '/') {
+        finalResult = div();
+      }
       preOpr = opr;
       opr = btnText;
       result = '';
-
-      // For equals, reset for next fresh calculation
-      if(btnText == '=') {
-        numOne = 0;
-        numTwo = 0;
-      }
     }
     else if(btnText == '%') {
       result = numOne / 100;
       finalResult = doesContainDecimal(result);
-    }
-    else if(btnText == '.') {
+    } else if(btnText == '.') {
       if(!result.toString().contains('.')) {
         result = '$result.';
       }
       finalResult = result;
     }
+
     else if(btnText == '+/-') {
       result.toString().startsWith('-') ? result = result.toString().substring(1): result = '-$result';
       finalResult = result;
+
     }
+
     else {
-      // If we just completed a calculation and user enters a number, start fresh
-      if(opr == '=') {
-        result = btnText;
-        numOne = 0;
-        numTwo = 0;
-        opr = '';
-      } else {
-        result = result + btnText;
-      }
+      result = result + btnText;
       finalResult = result;
     }
+
 
     setState(() {
       text = finalResult;
     });
+
   }
 
 
